@@ -8,9 +8,9 @@ sys.path.append(ROOT_DIR)
 
 
 @click.command()
-@click.argument('action', type=click.STRING, required=False)
+@click.argument("action", type=click.STRING, required=False)
 def main(action: str):
-    if action == 'run':
+    if action == "run":
         uvicorn.run(
             app="server:app",
             host="127.0.0.1",

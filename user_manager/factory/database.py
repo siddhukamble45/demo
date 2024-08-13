@@ -13,9 +13,7 @@ class SyncSession(Session):
 
 
 SessionLocal = sessionmaker(
-    class_=AsyncSession,
-    sync_session_class=SyncSession,
-    expire_on_commit=False
+    class_=AsyncSession, sync_session_class=SyncSession, expire_on_commit=False
 )
 
 Base = declarative_base()

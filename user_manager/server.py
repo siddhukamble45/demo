@@ -20,17 +20,13 @@ async def get_db():
 
 @app.post("/users/", response_model=UserResponse)
 async def create_user_view(
-        user: UserCreate,
-        db: AsyncSession = Depends(get_db)
+    user: UserCreate, db: AsyncSession = Depends(get_db)
 ):
     return await create_user(db=db, user=user)
 
 
 @app.get("/users/{user_id}", response_model=UserResponse)
-async def read_user(
-        user_id: int,
-        db: AsyncSession = Depends(get_db)
-):
+async def read_user(user_id: int, db: AsyncSession = Depends(get_db)):
     db_user = await get_user(db, user_id)
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
@@ -39,9 +35,7 @@ async def read_user(
 
 @app.get("/users/", response_model=list[UserResponse])
 async def read_users(
-        skip: int = 0,
-        limit: int = 10,
-        db: AsyncSession = Depends(get_db)
+    skip: int = 0, limit: int = 10, db: AsyncSession = Depends(get_db)
 ):
     users = await get_users(db, skip=skip, limit=limit)
     return users
@@ -49,9 +43,7 @@ async def read_users(
 
 @app.put("/users/{user_id}", response_model=UserResponse)
 async def update_user_view(
-        user_id: int,
-        user: UserUpdate,
-        db: AsyncSession = Depends(get_db)
+    user_id: int, user: UserUpdate, db: AsyncSession = Depends(get_db)
 ):
     db_user = await update_user(db, user_id, user)
     if db_user is None:
@@ -60,10 +52,7 @@ async def update_user_view(
 
 
 @app.delete("/users/{user_id}", response_model=UserResponse)
-async def delete_user_view(
-        user_id: int,
-        db: AsyncSession = Depends(get_db)
-):
+async def delete_user_view(user_id: int, db: AsyncSession = Depends(get_db)):
     db_user = await delete_user(db, user_id)
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
