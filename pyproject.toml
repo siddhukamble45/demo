@@ -1,0 +1,58 @@
+[project]
+name = 'user_manager'
+dynamic = ["version"]
+readme = "README.md"
+description = 'user_manager'
+requires-python = ">= 3.10"
+authors = [
+  { name = "Siddheshwar Kamble", email = "siddhukamble45@gmail.com" },
+]
+
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: Other/Proprietary License",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+    "fastapi==0.111.0",
+    "sqlalchemy==2.0.30",
+    "uvicorn==0.30.1",
+    "pytest==8.2.2",
+    "aiosqlite==0.20.0",
+    "greenlet==3.0.3"
+]
+
+[project.optional-dependencies]
+dev = [
+    'pytest',
+    'pytest-cov',
+    'pytest-asyncio',
+    'pytest-mock',
+    'uvicorn[standard]'
+]
+
+
+[project.scripts]
+user_manager = "user_manager.__main__:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+
+[tool.hatch.build.targets.wheel]
+packages = ["user_manager"]
+exclude = ["user_manager/tests/"]
+
+
+[tool.hatch.build]
+include = ["user_manager/*"]
+
+[tool.hatch.build.targets.sdist]
+exclude = ["user_manager/tests/"]
+
+[tool.hatch.version]
+path = "user_manager/VERSION"
+
