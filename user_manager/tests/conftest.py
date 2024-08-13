@@ -1,7 +1,7 @@
-import pytest
-from httpx import AsyncClient
 from user_manager.server import app
 from user_manager.factory.database import SessionLocal, engine, Base
+import pytest
+from httpx import AsyncClient
 
 
 @pytest.fixture(scope="module")

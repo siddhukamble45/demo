@@ -1,9 +1,11 @@
 import os
 import sys
-ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(ROOT_DIR)
 import click
 import uvicorn
+
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(ROOT_DIR)
+
 
 @click.command()
 @click.argument('action', type=click.STRING, required=False)
