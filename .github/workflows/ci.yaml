@@ -26,6 +26,18 @@ jobs:
         virtualenv -p python3 venv && . venv/bin/activate
         pip install twine build pytest pytest-cov
         pip install -r requirements.txt
+    - name: Linters
+      run: |
+        filepath=$PWD
+        . venv/bin/activate
+        pip install flake8
+        flake8 user_manager --max-line-length=88 --format=html --output=$filepath/flake8_report.html
+
+    - name: Upload flake8 report
+      uses: actions/upload-artifact@v4
+      with:
+        name: flake8-report
+        path: flake8_report.html
 
     - name: Test with pytest
       run: |
