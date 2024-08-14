@@ -1,0 +1,51 @@
+name: Test PyPI Upload
+
+on:
+  workflow_dispatch: # Allows manual trigger
+
+permissions:
+  contents: read
+
+jobs:
+  test-pypi:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4  # Ensure the repo is checked out
+
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.10"
+
+    - name: Install dependencies
+      run: |
+        python3 -m pip install virtualenv
+        virtualenv -p python3 venv && . venv/bin/activate
+        pip install twine build pytest pytest-cov
+        pip install -r requirements.txt
+
+    - name: Test with pytest
+      run: |
+        filepath=$PWD
+        . venv/bin/activate && cd user_manager
+        python3 -m pytest tests
+        cd $filepath
+
+
+    - name: Build the wheel
+      run: |
+        . venv/bin/activate
+        python3 -m build -w
+
+    - name: Install created package
+      run: |
+          rm -rf venv
+          virtualenv -p python3 venv && . venv/bin/activate
+          pip install dist/*.whl
+
+    - name: Upload to Test PyPI
+      env:
+        TWINE_USERNAME: ${{ secrets.TEST_TWINE_USERNAME }}
+        TWINE_PASSWORD: ${{ secrets.TEST_TWINE_PASSWORD }}
+      run: |
+        twine upload --repository-url https://test.pypi.org/legacy/ dist/*.whl
