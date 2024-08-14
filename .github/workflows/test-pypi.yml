@@ -48,4 +48,6 @@ jobs:
         TWINE_USERNAME: ${{ secrets.TEST_TWINE_USERNAME }}
         TWINE_PASSWORD: ${{ secrets.TEST_TWINE_PASSWORD }}
       run: |
-        twine upload --repository-url https://test.pypi.org/legacy/ dist/*.whl
+        . venv/bin/activate
+        pip install twine
+        twine upload --repository-url https://test.pypi.org/legacy/ dist/*
