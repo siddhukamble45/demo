@@ -45,9 +45,9 @@ jobs:
 
     - name: Upload to Test PyPI
       env:
-        TWINE_USERNAME: ${{ secrets.TEST_TWINE_USERNAME }}
-        TWINE_PASSWORD: ${{ secrets.TEST_TWINE_PASSWORD }}
+        TESTPYPI_USERNAME: ${{ secrets.TESTPYPI_USERNAME }}
+        TESTPYPI_PASSWORD: ${{ secrets.TEST_PYPI_API_TOKEN }}
       run: |
         . venv/bin/activate
         pip install twine
-        twine upload --repository-url https://test.pypi.org/legacy/ dist/* --verbose
+        python -m twine upload --repository testpypi dist/* --verbose
