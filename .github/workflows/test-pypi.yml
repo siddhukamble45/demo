@@ -45,8 +45,8 @@ jobs:
 
     - name: Upload to Test PyPI
       env:
-        TESTPYPI_USERNAME: ${{ secrets.TESTPYPI_USERNAME }}
-        TESTPYPI_PASSWORD: ${{ secrets.TEST_PYPI_API_TOKEN }}
+        username: ${{ secrets.TESTPYPI_USERNAME }}
+        password: ${{ secrets.TEST_PYPI_API_TOKEN }}
       run: |
         . venv/bin/activate
         pip install twine
