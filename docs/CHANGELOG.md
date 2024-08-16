@@ -1,11 +1,9 @@
-## user-manager-0.0.4 - [Released]
+## user-manager-0.0.4 - [Released] 16-Aug-2024
 
 ### Added
 - ENH: Updated User Manager README (#9) (Thanks siddhukamble45) https://github.com/siddhukamble45/demo/pull/9
 
 ### Changed
-- BUG: Flake issue fixes (#13) (Thanks siddhukamble45) https://github.com/siddhukamble45/demo/pull/13
-
 - BUG: Flake issue fixes (#13) (Thanks siddhukamble45) https://github.com/siddhukamble45/demo/pull/13
 
 - BUG: Fix Typo in main README file (#11) (Thanks siddhukamble45) https://github.com/siddhukamble45/demo/pull/11

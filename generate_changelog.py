@@ -57,7 +57,9 @@ def update_changelog(pr):
 
     # Define the version header and the initial sections if they don't exist
     version_header = f'## user-manager-{version} - [Unreleased]'
-    if version_header not in changelog_content:
+    released_header = f'## user-manager-{version} - [Released]'
+    if (version_header not in changelog_content
+            and released_header not in changelog_content):
 
         changelog_content = (
             f'{version_header}\n\n'
