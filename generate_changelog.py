@@ -46,7 +46,7 @@ def update_changelog(pr):
         changelog = file.read()
 
     # Create the "Unreleased" section for the current version
-    version_header = f'## {version} - [Unreleased]'
+    version_header = f'## user-manager-{version} - [Unreleased]'
     if version_header not in changelog:
         changelog = f'{version_header}\n\n### Added\n\n### Changed\n\n### General\n\n' + changelog
 
