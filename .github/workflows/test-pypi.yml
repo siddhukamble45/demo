@@ -7,7 +7,7 @@ permissions:
   contents: read
 
 jobs:
-  test-pypi:
+  release:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4  # Ensure the repo is checked out
