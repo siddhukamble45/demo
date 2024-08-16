@@ -1,4 +1,4 @@
-## user-manager-0.0.4 - [Unreleased]
+## user-manager-0.0.4 - [Released]
 
 ### Added
 - ENH: Updated User Manager README (#9) (Thanks siddhukamble45) https://github.com/siddhukamble45/demo/pull/9
