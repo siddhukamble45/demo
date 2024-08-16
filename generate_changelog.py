@@ -67,8 +67,7 @@ def update_changelog(pr):
     # Define the version header and the initial sections if they don't exist
     version_header = f'## user-manager-{version} - [Unreleased]'
     released_header = f'## user-manager-{version} - [Released]'
-    if (version_header not in changelog_content
-            and released_header not in changelog_content):
+    if version_header not in changelog_content:
 
         changelog_content = (
             f'{version_header}\n\n'
@@ -76,24 +75,24 @@ def update_changelog(pr):
             f'### Changed\n\n'
             f'### General\n\n{changelog_content}'
         )
+    if released_header not in changelog_content:
+        # Find the position of the correct section to insert the PR details
+        section_header = f'### {section}'
+        insert_position = (changelog_content.find(section_header) +
+                           len(section_header))
 
-    # Find the position of the correct section to insert the PR details
-    section_header = f'### {section}'
-    insert_position = (changelog_content.find(section_header) +
-                       len(section_header))
+        if insert_position != -1:
+            # Insert the description in the correct section
+            if description not in changelog_content:
+                changelog_content = (
+                        changelog_content[:insert_position] +
+                        f'\n{description}\n' +
+                        changelog_content[insert_position:]
+                )
 
-    if insert_position != -1:
-        # Insert the description in the correct section
-        if description not in changelog_content:
-            changelog_content = (
-                    changelog_content[:insert_position] +
-                    f'\n{description}\n' +
-                    changelog_content[insert_position:]
-            )
-
-    # Write the updated content back to the changelog file
-    with open(changelog_path, 'w') as file:
-        file.write(changelog_content)
+        # Write the updated content back to the changelog file
+        with open(changelog_path, 'w') as file:
+            file.write(changelog_content)
 
 
 if __name__ == '__main__':
