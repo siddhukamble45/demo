@@ -55,20 +55,22 @@ def update_changelog(pr):
     section = categorize_pr(title)
 
     with open(changelog_path, 'r') as file:
-        changelog = file.read()
+        lines = file.readlines()
 
     # Create the "Unreleased" section for the current version
     version_header = f'## user-manager-{version} - [Unreleased]'
-    if version_header not in changelog:
-        changelog = f'{version_header}\n\n### Added\n\n### Changed\n\n### General\n\n' + changelog
+    if version_header not in ''.join(lines):
+        lines.insert(0, f'{version_header}\n\n### Added\n\n### Changed\n\n### General\n\n')
 
-    # Find the correct section and append the PR details
-    pattern = rf'({version_header}.*?### {section}\n)'
-    replacement = f'{description}\n'
-    changelog = re.sub(pattern, replacement, changelog, flags=re.DOTALL)
-
+    # Find the correct section to append the PR details
+    print("## Description::", description)
+    for i, line in enumerate(lines):
+        if line.strip() == f'### {section}':
+            lines.insert(i + 1, f'{description}\n')
+            break
+    print("## Lines::", lines)
     with open(changelog_path, 'w') as file:
-        file.write(changelog)
+        file.writelines(lines)
 
 
 if __name__ == '__main__':
