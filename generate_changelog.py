@@ -73,11 +73,12 @@ def update_changelog(pr):
 
     if insert_position != -1:
         # Insert the description in the correct section
-        changelog_content = (
-                changelog_content[:insert_position] +
-                f'\n{description}\n' +
-                changelog_content[insert_position:]
-        )
+        if description not in changelog_content:
+            changelog_content = (
+                    changelog_content[:insert_position] +
+                    f'\n{description}\n' +
+                    changelog_content[insert_position:]
+            )
 
     # Write the updated content back to the changelog file
     with open(changelog_path, 'w') as file:

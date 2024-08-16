@@ -43,6 +43,11 @@ jobs:
         run: |
           git config --global user.name "${GIT_AUTHOR_NAME}"
           git config --global user.email "${GIT_AUTHOR_EMAIL}"
-          git add docs/CHANGELOG.md
-          git commit -m "Update CHANGELOG.md for Unreleased version"
-          git push https://x-access-token:${GIT_TOKEN}@github.com/${{ github.repository }} HEAD:${{ github.ref }}
+          if git diff --quiet docs/CHANGELOG.md; then
+            echo "No changes to commit"
+            exit 0
+          else
+            git add docs/CHANGELOG.md
+            git commit -m "Update CHANGELOG.md for Unreleased version"
+            git push https://x-access-token:${GIT_TOKEN}@github.com/${{ github.repository }} HEAD:${{ github.ref }}
+          fi
