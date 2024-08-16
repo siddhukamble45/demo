@@ -1,3 +1,7 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
 ## user-manager-0.0.5 - [Released] on 16-Aug-2024
 
 ### Added
