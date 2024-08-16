@@ -1,4 +1,4 @@
-## user-manager-0.0.5 - [Unreleased]
+## user-manager-0.0.5 - [Released] on 16-Aug-2024
 
 ### Added
 
