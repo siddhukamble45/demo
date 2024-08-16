@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - ENH: Enhancement in CHANGEME README with removed PR title prefix. (#16) (Thanks siddhukamble45) https://github.com/siddhukamble45/demo/pull/16
 
 ### Changed
+-  Generate change script fixed (#20) (Thanks siddhukamble45) https://github.com/siddhukamble45/demo/pull/20
 - BUG: Corrected main readme (#17) (Thanks siddhukamble45) https://github.com/siddhukamble45/demo/pull/17
 
 ### General
