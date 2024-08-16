@@ -1,3 +1,13 @@
+## user-manager-0.0.5 - [Unreleased]
+
+### Added
+
+### Changed
+- BUG: Fix flake issue in Update Change log README script #12 (#14) (Thanks siddhukamble45) https://github.com/siddhukamble45/demo/pull/14
+
+
+### General
+
 ## user-manager-0.0.4 - [Released] 16-Aug-2024
 
 ### Added
