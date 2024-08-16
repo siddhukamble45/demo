@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 - BUG: Corrected main readme (#17) (Thanks siddhukamble45) https://github.com/siddhukamble45/demo/pull/17
 
 ### General
+- DOC: Readme update (#18) (Thanks siddhukamble45) https://github.com/siddhukamble45/demo/pull/18
 
 
 ## user-manager-0.0.5 - [Released] on 16-Aug-2024
