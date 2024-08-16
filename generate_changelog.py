@@ -63,36 +63,27 @@ def update_changelog(pr):
     # Read the changelog and join lines into a single string
     with open(changelog_path, 'r') as file:
         changelog_content = file.read()
+    with open(changelog_path, 'r') as file:
+        changelog_lines = file.readlines()
 
-    # Define the version header and the initial sections if they don't exist
     version_header = f'## user-manager-{version} - [Unreleased]'
     released_header = f'## user-manager-{version} - [Released]'
     if version_header not in changelog_content:
+        version_header_line = f'{version_header}\n\n### Added\n\n### Changed\n\n### General\n\n'
+        version_header_lines = version_header_line.split('\n')
+        start_line = 4
+        for header_line in version_header_lines:
+            changelog_lines.insert(start_line, f'{header_line}\n')
+            start_line += 1
 
-        changelog_content = (
-            f'{version_header}\n\n'
-            f'### Added\n\n'
-            f'### Changed\n\n'
-            f'### General\n\n{changelog_content}'
-        )
     if released_header not in changelog_content:
-        # Find the position of the correct section to insert the PR details
-        section_header = f'### {section}'
-        insert_position = (changelog_content.find(section_header) +
-                           len(section_header))
-
-        if insert_position != -1:
-            # Insert the description in the correct section
-            if description not in changelog_content:
-                changelog_content = (
-                        changelog_content[:insert_position] +
-                        f'\n{description}\n' +
-                        changelog_content[insert_position:]
-                )
-
-        # Write the updated content back to the changelog file
-        with open(changelog_path, 'w') as file:
-            file.write(changelog_content)
+        if description not in changelog_content:
+            for i, line in enumerate(changelog_lines):
+                if line.strip() == f'### {section}':
+                    changelog_lines.insert(i + 1, f'{description}\n')
+                    break
+            with open(changelog_path, 'w') as file:
+                file.writelines(changelog_lines)
 
 
 if __name__ == '__main__':
