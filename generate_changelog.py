@@ -9,7 +9,18 @@ REPO_NAME = 'demo'
 API_URL = f'https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}'
 
 changelog_path = 'docs/CHANGELOG.md'
-version = '0.0.3'  # Replace with your current version
+
+
+def get_current_version():
+    with open('user_manager/VERSION') as file:
+        for line in file:
+            if line.startswith('__version__'):
+                # Extract the version value from the line
+                version = line.split('=')[1].strip().strip("'\"")
+                return version
+    raise ValueError("Version not found")
+
+
 
 
 def get_latest_pr():
@@ -35,6 +46,7 @@ def categorize_pr(title):
 
 
 def update_changelog(pr):
+    version = get_current_version()
     title = pr.get('title')
     number = pr.get('number')
     user = pr.get('user', {}).get('login', 'unknown')
