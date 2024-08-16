@@ -42,14 +42,23 @@ def categorize_pr(title):
         return 'General'
 
 
+def get_title_without_prefix(title):
+    if title[4] == ':':
+        return title[5:]
+    if title[5] == ':':
+        return title[6:]
+    return title
+
+
 def update_changelog(pr):
     version = get_current_version()
     title = pr.get('title')
     number = pr.get('number')
     user = pr.get('user', {}).get('login', 'unknown')
     url = pr.get('html_url')
-    description = f"- {title} (#{number}) (Thanks {user}) {url}"
     section = categorize_pr(title)
+    title = get_title_without_prefix(title)
+    description = f"- {title} (#{number}) (Thanks {user}) {url}"
 
     # Read the changelog and join lines into a single string
     with open(changelog_path, 'r') as file:
