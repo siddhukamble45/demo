@@ -69,7 +69,10 @@ def update_changelog(pr):
     version_header = f'## user-manager-{version} - [Unreleased]'
     released_header = f'## user-manager-{version} - [Released]'
     if version_header not in changelog_content:
-        version_header_line = f'{version_header}\n\n### Added\n\n### Changed\n\n### General\n\n'
+        version_header_line = (f'{version_header}\n\n'
+                               f'### Added\n\n'
+                               f'### Changed\n\n'
+                               f'### General\n\n')
         version_header_lines = version_header_line.split('\n')
         start_line = 4
         for header_line in version_header_lines:
