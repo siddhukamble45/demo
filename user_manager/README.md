@@ -5,4 +5,3 @@ This User Management Application provides the following features:
 - User Update
 - User Deletion
 
-Updating the README.md file in the user_manager.
