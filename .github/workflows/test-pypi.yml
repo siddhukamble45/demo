@@ -43,6 +43,27 @@ jobs:
           virtualenv -p python3 venv && . venv/bin/activate
           pip install dist/*.whl
 
+    - name: Generate Changelog Entry
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        . venv/bin/activate
+        python update_changelog.py
+
+    - name: Commit and push changes
+      env:
+        GIT_AUTHOR_NAME: 'Siddheshwar Kamble'
+        GIT_AUTHOR_EMAIL: 'siddhukamble45@gmail.com'
+        GIT_COMMITTER_NAME: 'Siddheshwar Kamble'
+        GIT_COMMITTER_EMAIL: 'siddhukamble45@gmail.com'
+        GIT_TOKEN: ${{ secrets.PAT_TOKEN }}
+      run: |
+        git config --global user.name "${GIT_AUTHOR_NAME}"
+        git config --global user.email "${GIT_AUTHOR_EMAIL}"
+        git add docs/CHANGELOG.md
+        git commit -m "Update CHANGELOG.md for Release version"
+        git push https://x-access-token:${GIT_TOKEN}@github.com/${{ github.repository }} HEAD:${{ github.ref }}
+
     - name: Upload to Test PyPI
       env:
         TWINE_USERNAME: ${{ secrets.TEST_PYPI_USERNAME }}

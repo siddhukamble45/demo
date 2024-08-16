@@ -10,7 +10,7 @@
 
 ### General
 
-## user-manager-0.0.3 - [Unreleased]
+## user-manager-0.0.3 - [Released] 16-Aug-2024
 
 ### Added
 
