@@ -43,10 +43,10 @@ def categorize_pr(title):
 
 
 def get_title_without_prefix(title):
+    if title[3] == ':':
+        return title[4:]
     if title[4] == ':':
         return title[5:]
-    if title[5] == ':':
-        return title[6:]
     return title
 
 
