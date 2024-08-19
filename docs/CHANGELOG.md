@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## user-manager-0.0.6 - [Unreleased]
+## user-manager-0.0.6 - [Released] on 19-Aug-2024
 
 ### Added
 - ENH: Corrected Readme and flake issue fix (#19) (Thanks siddhukamble45) https://github.com/siddhukamble45/demo/pull/19
