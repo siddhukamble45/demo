@@ -6,3 +6,5 @@ user-manager is an open-source tool designed to solve specific problems. The pro
 - Developer 1
 - Developer 2
 - Contributor 1
+
+All rights reserved.
