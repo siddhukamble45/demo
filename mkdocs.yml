@@ -1,7 +1,0 @@
-site_name: Demo User Manager Documentation
-theme:
-  name: material
-
-nav:
-  - Home: index.md
-  - About: about.md
