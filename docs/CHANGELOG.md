@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## user-manager-0.0.7 - [Unreleased]
+
+### Added
+-  Added Docs release workflow and update readme's (#23) (Thanks siddhukamble45) https://github.com/siddhukamble45/demo/pull/23
+
+### Changed
+
+### General
+
+
 ## user-manager-0.0.6 - [Released] on 19-Aug-2024
 
 ### Added
