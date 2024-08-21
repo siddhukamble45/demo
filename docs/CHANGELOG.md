@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 -  Added Docs release workflow and update readme's (#23) (Thanks siddhukamble45) https://github.com/siddhukamble45/demo/pull/23
 
 ### Changed
+-  Updated Index and About me readme's (#25) (Thanks siddhukamble45) https://github.com/siddhukamble45/demo/pull/25
 
 ### General
 
