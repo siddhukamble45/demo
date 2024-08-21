@@ -12,4 +12,6 @@ Welcome to the documentation for user-manager. This is the main landing page of 
 User Manager is a Fast API User Management Application.
 Above mentioned features are available in the application.
 
+Updated This file and also about me.
+
 For more information, check out the [About Page](about.md).
