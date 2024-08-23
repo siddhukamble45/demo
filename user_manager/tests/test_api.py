@@ -3,7 +3,7 @@ from httpx import AsyncClient
 
 
 @pytest.mark.asyncio
-async def test_create_user(client: AsyncClient, db):
+async def test_create_user(client: AsyncClient):
     user_data = {
         "username": "johndoe",
         "email": "john@example.com",
@@ -16,15 +16,22 @@ async def test_create_user(client: AsyncClient, db):
     assert data["email"] == "john@example.com"
     assert data["full_name"] == "John Doe"
 
+    # Delete the user
+    response = await client.delete(f"/users/{data['id']}")
+    assert response.status_code == 200
+
 
 @pytest.mark.asyncio
-async def test_read_user(client: AsyncClient, db):
+async def test_read_user(client: AsyncClient):
     # Create a user first
     user_data = {
         "username": "johndoe",
         "email": "john@example.com",
         "full_name": "John Doe",
     }
+    response = await client.get("/users/1")
+    assert response.status_code == 404
+
     create_response = await client.post("/users/", json=user_data)
     user_id = create_response.json()["id"]
 
@@ -36,9 +43,13 @@ async def test_read_user(client: AsyncClient, db):
     assert data["email"] == "john@example.com"
     assert data["full_name"] == "John Doe"
 
+    # Delete the user
+    response = await client.delete(f"/users/{user_id}")
+    assert response.status_code == 200
+
 
 @pytest.mark.asyncio
-async def test_update_user(client: AsyncClient, db):
+async def test_update_user(client: AsyncClient):
     # Create a user first
     user_data = {
         "username": "johndoe",
@@ -61,9 +72,13 @@ async def test_update_user(client: AsyncClient, db):
     assert data["email"] == "johnsmith@example.com"
     assert data["full_name"] == "John Smith"
 
+    # Delete the user
+    response = await client.delete(f"/users/{user_id}")
+    assert response.status_code == 200
+
 
 @pytest.mark.asyncio
-async def test_delete_user(client: AsyncClient, db):
+async def test_delete_user(client: AsyncClient):
     # Create a user first
     user_data = {
         "username": "johndoe",
@@ -79,4 +94,8 @@ async def test_delete_user(client: AsyncClient, db):
 
     # Try to read the deleted user
     response = await client.get(f"/users/{user_id}")
+    assert response.status_code == 404
+
+    # Try to delete the user again
+    response = await client.delete(f"/users/{user_id}")
     assert response.status_code == 404

@@ -1,5 +1,6 @@
-from db_model.models import User
-from user_schema.schemas import UserCreate, UserUpdate
+
+from user_manager.db_model.models import User
+from user_manager.user_schema.schemas import UserCreate, UserUpdate
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 
