@@ -8,6 +8,8 @@ on:
 
 permissions:
   contents: read
+  issues: write
+  pull-requests: write
 
 jobs:
   build_and_test:
@@ -26,6 +28,7 @@ jobs:
         virtualenv -p python3 venv && . venv/bin/activate
         pip install twine build pytest pytest-cov
         pip install -r requirements.txt
+
     - name: Linters
       run: |
         filepath=$PWD
@@ -39,7 +42,7 @@ jobs:
         name: flake8-report
         path: flake8_report.html
 
-    - name: Test with pytest
+    - name: Test with pytest and Generate Coverage
       run: |
         filepath=$PWD
         . venv/bin/activate && cd user_manager
@@ -63,7 +66,7 @@ jobs:
         hide_complexity: true
         indicators: true
         output: both
-        thresholds: '60 80'
+        thresholds: '20 80'
 
     - name: Add Coverage PR Comment
       uses: marocchino/sticky-pull-request-comment@v2

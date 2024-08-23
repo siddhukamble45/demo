@@ -1,5 +1,5 @@
-from user_manager.server import app
-from user_manager.factory.database import SessionLocal, engine, Base
+from server import app
+from factory.database import SessionLocal, engine, Base
 import pytest
 from httpx import AsyncClient
 
@@ -15,6 +15,12 @@ async def db():
     # Drop tables
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.drop_all)
+
+
+@pytest.fixture
+async def async_session():
+    async with SessionLocal() as session:  # Replace with actual session setup
+        yield session
 
 
 @pytest.fixture()
