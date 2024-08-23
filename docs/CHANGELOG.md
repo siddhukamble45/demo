@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ## user-manager-0.0.7 - [Unreleased]
 
 ### Added
+-  Added code coverage in ci workflow (#26) (Thanks siddhukamble45) https://github.com/siddhukamble45/demo/pull/26
 -  Updated docs readme's (#24) (Thanks siddhukamble45) https://github.com/siddhukamble45/demo/pull/24
 -  Added Docs release workflow and update readme's (#23) (Thanks siddhukamble45) https://github.com/siddhukamble45/demo/pull/23
 
