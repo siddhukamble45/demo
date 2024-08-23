@@ -8,6 +8,8 @@ on:
 
 permissions:
   contents: read
+  issues: write
+  pull-requests: write
 
 jobs:
   build_and_test:
@@ -26,6 +28,7 @@ jobs:
         virtualenv -p python3 venv && . venv/bin/activate
         pip install twine build pytest pytest-cov
         pip install -r requirements.txt
+
     - name: Linters
       run: |
         filepath=$PWD
@@ -39,7 +42,7 @@ jobs:
         name: flake8-report
         path: flake8_report.html
 
-    - name: Test with pytest
+    - name: Test with pytest and Generate Coverage
       run: |
         filepath=$PWD
         . venv/bin/activate && cd user_manager
@@ -51,6 +54,26 @@ jobs:
       with:
         name: coverage-report
         path: coverage.xml
+
+    - name: Code Coverage Summary Report
+      uses: irongut/CodeCoverageSummary@v1.3.0
+      with:
+        filename: coverage.xml
+        badge: true
+        fail_below_min: true
+        format: markdown
+        hide_branch_rate: false
+        hide_complexity: true
+        indicators: true
+        output: both
+        thresholds: '20 80'
+
+    - name: Add Coverage PR Comment
+      uses: marocchino/sticky-pull-request-comment@v2
+      if: github.event_name == 'pull_request'
+      with:
+        recreate: true
+        path: code-coverage-results.md
 
     - name: Upload test results
       uses: actions/upload-artifact@v4
