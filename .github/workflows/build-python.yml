@@ -29,14 +29,17 @@ jobs:
 
     - name: Test with pytest
       run: |
-        filepath=$PWD
         . venv/bin/activate && cd user_manager
         python3 -m pytest tests
-        cd $filepath
+        filepath_pytest=$PWD
+        echo $filepath_pytest
 
 
     - name: Build the wheel
       run: |
+        filepath=$PWD
+        echo "Build wheel filepath"
+        echo $filepath
         . venv/bin/activate
         python3 -m build -w
 

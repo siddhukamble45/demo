@@ -1,0 +1,124 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4  # Ensure the repo is checked out
+
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.10"
+
+    - name: Install dependencies
+      run: |
+        python3 -m pip install virtualenv
+        virtualenv -p python3 venv && . venv/bin/activate
+        pip install twine build pytest pytest-cov coverage
+        pip install -r requirements.txt
+
+    - name: Linters
+      run: |
+        filepath=$PWD
+        . venv/bin/activate
+        pip install flake8
+        flake8 user_manager --max-line-length=88 --format=html --output=$filepath/flake8_report.html
+
+    - name: Upload flake8 report
+      uses: actions/upload-artifact@v4
+      with:
+        name: flake8-report
+        path: flake8_report.html
+
+    - name: Test with pytest and Generate Coverage
+      run: |
+        filepath=$PWD
+        . venv/bin/activate
+        cd user_manager
+        # Run tests with coverage
+        coverage run --source=. -m pytest tests
+        # Generate terminal and XML reports
+        # coverage report > $filepath/code-coverage-results.md --fail-under=80
+        coverage xml -o $filepath/coverage.xml
+
+        # Add code block markers for markdown formatting
+        echo "## Code Coverage Report" >> $filepath/code-coverage-results.md
+        echo '```' >> $filepath/code-coverage-results.md
+        coverage report >> $filepath/code-coverage-results.md
+        echo '```' >> $filepath/code-coverage-results.md
+
+    - name: Upload coverage report
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-report
+        path: coverage.xml
+
+    - name: Add Coverage PR Comment
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+          const path = 'code-coverage-results.md';
+
+          // Read the coverage result from the file
+          const coverageContent = fs.readFileSync(path, 'utf8');
+
+          // List all comments in the pull request
+          const { data: comments } = await github.rest.issues.listComments({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+          });
+
+          // Find if a previous coverage comment exists
+          const previousComment = comments.find(comment => comment.body.includes('## Code Coverage Report'));
+
+          // Build the new comment body with the coverage content
+          const commentBody = `## Code Coverage Report\n\n${coverageContent}`;
+
+          // Update the previous comment if it exists, otherwise create a new one
+          if (previousComment) {
+            await github.rest.issues.updateComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: previousComment.id,
+              body: commentBody
+            });
+          } else {
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: commentBody
+            });
+          }
+
+    - name: Upload test results
+      uses: actions/upload-artifact@v4
+      with:
+        name: junit-results
+        path: junit.xml
+
+    - name: Build the wheel
+      run: |
+        . venv/bin/activate
+        python3 -m build -w
+
+    - name: Install created package
+      run: |
+          rm -rf venv
+          virtualenv -p python3 venv && . venv/bin/activate
+          pip install dist/*.whl
