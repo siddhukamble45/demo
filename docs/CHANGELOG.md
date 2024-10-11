@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## user-manager-0.0.7 - [Unreleased]
+## user-manager-0.0.7 - [Released] on 11-Oct-2024
 
 ### Added
 -  Added code coverage in ci workflow (#26) (Thanks siddhukamble45) https://github.com/siddhukamble45/demo/pull/26
