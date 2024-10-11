@@ -99,8 +99,8 @@ jobs:
       - name: Build and Push Docker Image
         run: |
           docker build --file ./docker/Dockerfile --tag user_manager:latest .
-          docker tag user_manager:latest $DOCKER_USERNAME/user_manager:latest
-          docker push $DOCKER_USERNAME/user_manager:latest
+          docker tag user_manager:latest $username/user_manager:latest
+          docker push $username/user_manager:latest
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKERHUB_TOKEN: ${{ secrets.DOCKER_PASSWORD }}
