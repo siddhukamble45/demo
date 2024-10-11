@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file.
 -  Updated Index and About me readme's (#25) (Thanks siddhukamble45) https://github.com/siddhukamble45/demo/pull/25
 
 ### General
+- Add docker pipeline (#28) (Thanks siddhukamble45) https://github.com/siddhukamble45/demo/pull/28
 
 
 ## user-manager-0.0.6 - [Released] on 19-Aug-2024
