@@ -104,6 +104,6 @@ jobs:
           echo "VERSION=$VERSION" >> $GITHUB_ENV
         
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag ${{secrets.DOCKER_USERNAME}}/user-manager:${{ env.VERSION }}
+        run: docker build . --file ./docker/Dockerfile --tag ${{secrets.DOCKER_USERNAME}}/user-manager:${{ env.VERSION }}
       - name: Push the Docker image
         run: docker push ${{secrets.DOCKER_USERNAME}}/user-manager:${{ env.VERSION }}
