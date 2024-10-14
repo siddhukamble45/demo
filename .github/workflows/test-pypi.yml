@@ -101,7 +101,7 @@ jobs:
           # Extract the <revision> property from pom.xml using grep and sed
           VERSION=$(grep -oPm1 "(?<=<revision>)[^<]+" pom.xml)
           echo "Extracted Version: $VERSION"
-          echo "::set-output name=version::$VERSION"  # Set the output for use in the Docker step
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
           
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v6
