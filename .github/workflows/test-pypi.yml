@@ -98,10 +98,11 @@ jobs:
       - name: Read Version from pom.xml
         id: get_version
         run: |
-          VERSION=$(grep -oPm1 "(?<=<version>)[^<]+" pom.xml | head -n 1)
-          echo "Version: $VERSION"
-          echo "::set-output name=version::$VERSION"
-
+          # Extract the <revision> property from pom.xml using grep and sed
+          VERSION=$(grep -oPm1 "(?<=<revision>)[^<]+" pom.xml)
+          echo "Extracted Version: $VERSION"
+          echo "::set-output name=version::$VERSION"  # Set the output for use in the Docker step
+          
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v6
         with:
@@ -109,5 +110,5 @@ jobs:
           file: docker/Dockerfile  # Path to the Dockerfile
           push: true  # Push the image to Docker Hub
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/my-app:${{ env.VERSION }}  # Use version from pom.xml
-            ${{ secrets.DOCKER_USERNAME }}/my-app:latest  # Optionally push as 'latest' as well
+            ${{ secrets.DOCKER_USERNAME }}/user-manger:${{ env.VERSION }}  # Use version from pom.xml
+            ${{ secrets.DOCKER_USERNAME }}/user-manger:latest  # Optionally push as 'latest' as well
