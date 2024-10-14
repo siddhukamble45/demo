@@ -95,12 +95,19 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}  # Docker Hub username stored as a GitHub secret.
           password: ${{ secrets.DOCKER_PASSWORD }}  # Docker Hub token (password) stored as a GitHub secret.
+      - name: Read Version from pom.xml
+        id: get_version
+        run: |
+          VERSION=$(grep -oPm1 "(?<=<version>)[^<]+" pom.xml | head -n 1)
+          echo "Version: $VERSION"
+          echo "::set-output name=version::$VERSION"
 
       - name: Build and Push Docker Image
-        run: |
-          docker build --file ./docker/Dockerfile --tag user_manager:latest .
-          docker tag user_manager:latest $username/user_manager:latest
-          docker push $username/user_manager:latest
-        env:
-          DOCKERHUB_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKERHUB_TOKEN: ${{ secrets.DOCKER_PASSWORD }}
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: docker/Dockerfile  # Path to the Dockerfile
+          push: true  # Push the image to Docker Hub
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/my-app:${{ env.VERSION }}  # Use version from pom.xml
+            ${{ secrets.DOCKER_USERNAME }}/my-app:latest  # Optionally push as 'latest' as well
