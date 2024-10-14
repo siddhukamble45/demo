@@ -102,12 +102,8 @@ jobs:
           VERSION=$(grep -oPm1 "(?<=<revision>)[^<]+" pom.xml)
           echo "Extracted Version: $VERSION"
           echo "VERSION=$VERSION" >> $GITHUB_ENV
-          
-      - name: Build and Push Docker Image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: docker/Dockerfile  # Path to the Dockerfile
-          push: true  # Push the image to Docker Hub
-          tags: |
-            ${{ secrets.DOCKER_USERNAME }}/user-manager:latest  # Optionally push as 'latest' as well
+        
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag ${{secrets.DOCKER_USERNAME}}/user-manager:${{ env.VERSION }}
+      - name: Push the Docker image
+        run: docker push ${{secrets.DOCKER_USERNAME}}/user-manager:${{ env.VERSION }}
