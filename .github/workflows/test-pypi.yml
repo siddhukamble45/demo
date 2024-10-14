@@ -110,5 +110,4 @@ jobs:
           file: docker/Dockerfile  # Path to the Dockerfile
           push: true  # Push the image to Docker Hub
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/user-manger:${{ env.VERSION }}  # Use version from pom.xml
             ${{ secrets.DOCKER_USERNAME }}/user-manger:latest  # Optionally push as 'latest' as well
