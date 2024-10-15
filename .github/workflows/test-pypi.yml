@@ -1,4 +1,4 @@
-name: Test PyPI Upload and Docker Push
+name: Test PyPI Upload and Docker Hub
 
 on:
   workflow_dispatch: # Allows manual trigger
