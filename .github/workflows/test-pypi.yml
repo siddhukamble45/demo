@@ -78,6 +78,7 @@ jobs:
         . venv/bin/activate
         pip install twine
         twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+        
   release_to_docker_hub:
     runs-on: ubuntu-latest
     steps:
@@ -95,6 +96,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}  # Docker Hub username stored as a GitHub secret.
           password: ${{ secrets.DOCKER_PASSWORD }}  # Docker Hub token (password) stored as a GitHub secret.
+      
       - name: Read Version from pom.xml
         id: get_version
         run: |
@@ -102,6 +104,7 @@ jobs:
           VERSION=$(grep -oPm1 "(?<=<revision>)[^<]+" pom.xml)
           echo "Extracted Version: $VERSION"
           echo "VERSION=$VERSION" >> $GITHUB_ENV
+      
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
