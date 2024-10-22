@@ -83,7 +83,7 @@ jobs:
       run: |
         . venv/bin/activate
         pip install twine
-        twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+        twine upload --repository-url https://test.pypi.org/legacy/ paig-securechat/dist/*
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
