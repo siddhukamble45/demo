@@ -88,8 +88,8 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v6
       with:
-        context: .
-        file: ./paig-securechat/docker/Dockerfile
+        context: ./paig-securechat
+        file: ./docker/Dockerfile
         push: true
         tags: siddhu045/demo_user_manager:${{ env.VERSION }}
         no-cache: true
