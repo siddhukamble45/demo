@@ -3,12 +3,12 @@ name: test-paig-securechat upload to PyPI and DockerHub
 on:
   workflow_dispatch: # Allows manual trigger
     inputs:
-      push_to_pypi:
-        description: 'Push release to public PyPI'
+      skip_publish_to_pypi:
+        description: 'Skip publish to PyPI'
         required: false
         default: 'false'
-      push_to_docker_hub:
-        description: 'Push release to Docker Hub'
+      skip_publish_to_docker:
+        description: 'Skip publish to Docker Hub'
         required: false
         default: 'false'
 
@@ -76,7 +76,7 @@ jobs:
         pip install dist/*.whl
         
     - name: Upload to Test PyPI
-      if: github.event.inputs.push_to_pypi == 'true'
+      if: github.event.inputs.skip_publish_to_pypi == 'false'
       env:
         TWINE_USERNAME: ${{ secrets.TEST_PYPI_USERNAME }}
         TWINE_PASSWORD: ${{ secrets.TEST_PYPI_API_TOKEN }}
@@ -105,7 +105,7 @@ jobs:
         echo "VERSION=$VERSION" >> $GITHUB_ENV
 
     - name: Build and push
-      if: github.event.inputs.push_to_docker_hub == 'true'
+      if: github.event.inputs.skip_publish_to_docker == 'false'
       uses: docker/build-push-action@v6
       with:
         context: ./paig-securechat
