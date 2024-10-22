@@ -6,11 +6,11 @@ on:
       push_to_pypi:
         description: 'Push release to public PyPI'
         required: false
-        default: 'true'
+        default: 'false'
       push_to_docker_hub:
         description: 'Push release to Docker Hub'
         required: false
-        default: 'true'
+        default: 'false'
 
 permissions:
   contents: read
