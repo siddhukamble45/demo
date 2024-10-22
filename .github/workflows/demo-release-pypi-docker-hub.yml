@@ -74,6 +74,16 @@ jobs:
         virtualenv -p python3 venv && . venv/bin/activate
         cd paig-securechat
         pip install dist/*.whl
+        
+    - name: Upload to Test PyPI
+      if: github.event.inputs.push_to_pypi == 'true'
+      env:
+        TWINE_USERNAME: ${{ secrets.TEST_PYPI_USERNAME }}
+        TWINE_PASSWORD: ${{ secrets.TEST_PYPI_API_TOKEN }}
+      run: |
+        . venv/bin/activate
+        pip install twine
+        twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
