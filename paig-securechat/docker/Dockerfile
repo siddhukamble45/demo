@@ -10,6 +10,9 @@ COPY web-ui web-ui/
 # Install React App dependencies and build static files
 RUN npm install npm@9.8.1 -g
 
+# Copy package.json and package-lock.json to leverage Docker cache
+COPY web-ui/package*.json web-ui/
+
 RUN cd /workdir/web-ui && npm install --legacy-peer-deps
 
 # Build the application
