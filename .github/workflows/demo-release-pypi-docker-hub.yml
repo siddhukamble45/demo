@@ -2,6 +2,15 @@ name: test-paig-securechat upload to PyPI and DockerHub
 
 on:
   workflow_dispatch: # Allows manual trigger
+    inputs:
+      push_to_pypi:
+        description: 'Push release to public PyPI'
+        required: true
+        default: 'false'
+      push_to_docker_hub:
+        description: 'Push release to Docker Hub'
+        required: true
+        default: 'false'
 
 permissions:
   contents: read
@@ -86,6 +95,7 @@ jobs:
         echo "VERSION=$VERSION" >> $GITHUB_ENV
 
     - name: Build and push
+      if: github.event.inputs.push_to_docker_hub == 'true'
       uses: docker/build-push-action@v6
       with:
         context: ./paig-securechat
