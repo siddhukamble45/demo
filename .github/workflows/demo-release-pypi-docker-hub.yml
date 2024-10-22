@@ -5,12 +5,12 @@ on:
     inputs:
       push_to_pypi:
         description: 'Push release to public PyPI'
-        required: true
-        default: 'false'
+        required: false
+        default: 'true'
       push_to_docker_hub:
         description: 'Push release to Docker Hub'
-        required: true
-        default: 'false'
+        required: false
+        default: 'true'
 
 permissions:
   contents: read
