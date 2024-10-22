@@ -91,4 +91,4 @@ jobs:
         context: .
         file: ./paig-securechat/docker/Dockerfile
         push: true
-        tags: siddhu045/user_manager:${{ env.VERSION }}
+        tags: siddhu045/demo_user_manager:${{ env.VERSION }}
