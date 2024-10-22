@@ -17,7 +17,6 @@ venv/
 **/dist
 **/workspaces
 **/build
-**/public
 **/node_modules
 **/.vscode
 **/*dont_commit*
