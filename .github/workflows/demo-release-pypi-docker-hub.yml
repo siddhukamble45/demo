@@ -4,11 +4,11 @@ on:
   workflow_dispatch: # Allows manual trigger
     inputs:
       skip_publish_to_pypi:
-        description: 'Skip publish to PyPI'
+        description: 'Skip publish to PyPI (By Default false)'
         required: false
         default: 'false'
       skip_publish_to_docker:
-        description: 'Skip publish to Docker Hub'
+        description: 'Skip publish to Docker Hub (By Default false)'
         required: false
         default: 'false'
 
