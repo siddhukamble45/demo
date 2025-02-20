@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## user-manager-0.0.8 - [Unreleased]
+## user-manager-0.0.8 - [Released] on 20-Feb-2025
 
 ### Added
 
