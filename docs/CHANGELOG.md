@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## user-manager-0.0.8 - [Unreleased]
+
+### Added
+
+### Changed
+
+### General
+- fix git ignore (#30) (Thanks SiddheshwarKamble) https://github.com/siddhukamble45/demo/pull/30
+
+
 ## user-manager-0.0.7 - [Released] on 11-Oct-2024
 
 ### Added
