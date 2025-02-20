@@ -104,4 +104,6 @@ jobs:
         context: .
         file: ./docker/Dockerfile 
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/user_manager:${{ env.VERSION }}
+        tags: |
+          ${{ secrets.DOCKERHUB_USERNAME }}/user_manager:${{ env.VERSION }}
+          ${{ secrets.DOCKERHUB_USERNAME }}/user_manager:latest
